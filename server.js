@@ -6,27 +6,23 @@ var express = require('express'),
 var logger = require('./helpers/logger');
 
 /// plugins ///
+// TODO: Add body parser plugin later.
 
-
-/// log each request ///
-server.use(logger.logRequest);
-
-server.get('/', function (req, res) {
-    res.status(200).send("Hello from the server site");
-});
-
+// add a req.version (from accept-version header) for convience.
 server.use(function(req, res, next) {
-    console.log(">>>> ", req.header('accept-version'));
     req.version = req.header('accept-version');
     next();
 });
 
-/// standard routes ////
+/// log each request ///
+server.use(logger.logRequest);
 
-server.post('/', function(req, res){
-    res.send(201, "you posted something")
+// test function for the root directory. GET /
+server.get('/', function (req, res) {
+    res.status(200).send("Hello from the server side");
 });
 
+/// standard routes ////
 server.use('/api', require('./api'));
 
 server.listen(5500, function (req, res, next) {
