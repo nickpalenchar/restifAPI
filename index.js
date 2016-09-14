@@ -3,6 +3,7 @@ var restify = require('restify'),
     //noinspection JSAnnotator
     server = restify.createServer(),
     chalk  = require('chalk');
+var Router = require('restify-router').Router;
 
 var logger = require('./logger');
 
@@ -21,6 +22,9 @@ server.get('/hello/:name', function (req, res, next) {
     res.send(200, "Hello " + req.params.name + "!");
     next();
 });
+
+/// standard routes
+require('./api').applyRoutes(server, '/api');
 
 server.post('/', function(req, res){
     res.send(201, "you posted something")
