@@ -1,19 +1,11 @@
-var Router = require('restify-router').Router;
-var apiRouter = new Router();
-var userRouter = new Router();
+var apiRouter = require('express').Router();
+
+var guard = require('../helpers/guard');
 
 apiRouter.get('/', function (req, res) {
-    res.send(203, "the sub server worked woweee")
+    res.status(203).send("the sub server worked woweee");
 });
 
-userRouter.get('/', function (req, res) {
-    res.send(200, "YES");
-});
+apiRouter.use('/dev', guard.requireDevelopment, require('./_dev'));
 
-// apiRouter.applyRoutes(userRouter, '/user');
-
-module.exports = function(server){
-    apiRouter.applyRoutes(server, '/api');
-    /// sub routes
-    require('./client')(server);
-};
+module.exports = apiRouter;
