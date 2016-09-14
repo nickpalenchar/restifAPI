@@ -2,6 +2,7 @@ var chalk = require('chalk');
 
 module.exports.logRequest = function(req, res, next) {
     ///// LOGGING SYSTEM ////
+    console.log(req.header("Accept-Version"));
     console.log("--- NEW REQUEST ---");
     console.log(new Date());
     console.log(chalk.red("METHOD: " + req.method));

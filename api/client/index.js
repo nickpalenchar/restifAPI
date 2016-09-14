@@ -1,10 +1,20 @@
-var Router = require('restify-router').Router;
-var clientRouter = new Router();
+var Router = require('express').Router;
+var clientRouter = Router();
+var routesVersion = require('express-routes-versioning')();
 
-function applyRoutes(server){
-    clientRouter.get('/', function (req, res) {
-        res.send(200, "YAASS YOU GOT THE CLIENT THING");
-    });
-    clientRouter.applyRoutes(server, '/client');
-}
-module.exports = applyRoutes;
+var controller = require('./client.controller');
+
+clientRouter.get('/', function(req, res){
+    if(req.version === "1" ) controller.getMain_1(req, res);
+    else controller.getMain(req, res);
+});
+
+
+
+
+// clientRouter.get('/', routesVersion({
+//     "1": controller.getMain_1,
+//     "2": controller.getMain
+// }, function(){console.log("NOT FOUND")}));
+
+module.exports = clientRouter;
