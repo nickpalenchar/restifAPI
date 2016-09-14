@@ -11,7 +11,7 @@ var logger = require('./logger');
 server.use(restifyPlugins.bodyParser());
 server.use(restifyPlugins.queryParser());
 
-/// log each request
+/// log each request ///
 server.use(logger.logRequest);
 
 server.get('/', function (req, res) {
@@ -23,8 +23,8 @@ server.get('/hello/:name', function (req, res, next) {
     next();
 });
 
-/// standard routes
-require('./api').applyRoutes(server, '/api');
+/// standard routes ////
+require('./api')(server);
 
 server.post('/', function(req, res){
     res.send(201, "you posted something")
