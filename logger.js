@@ -5,7 +5,7 @@ module.exports.logRequest = function(req, res, next) {
     console.log("--- NEW REQUEST ---");
     console.log(new Date());
     console.log(chalk.red("METHOD: " + req.method));
-    console.log(chalk.yellow("PATH: "  + req.path()));
+    console.log(chalk.yellow("PATH: "  + req.path));
     console.log(chalk.cyan("BODY: "    + (JSON.stringify(req.body) || "{}")));
     next();
 };
