@@ -7,5 +7,6 @@ apiRouter.get('/', function (req, res) {
 });
 
 apiRouter.use('/dev', guard.requireDevelopment, require('./_dev'));
+apiRouter.use('/client', require('./client'));
 
 module.exports = apiRouter;
